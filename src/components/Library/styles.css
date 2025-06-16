@@ -1,0 +1,75 @@
+.library {
+    background: rgba(126, 5, 126, 0.27);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(11.3px);
+    border: 3px solid rgba(179, 179, 179, 0.493);
+    text-align: center;
+    margin: 2%;
+    color: #fff;
+    
+   
+}
+
+.libraryList {
+    padding: 0;
+    margin: 2%;
+    
+}
+.titeLibrary {
+    margin: 0;
+    text-align: center;
+}
+
+.albumName {
+    cursor: pointer;
+    transition: ease-out 0.8s;
+    text-align: center;
+    margin: 0;
+    font-weight: bold;
+    color: #ffffff56;
+    
+}
+.albumName:hover {
+    scale: 1.1;
+     transition: ease-in 0.2s;
+    color: #ffffff; 
+}
+
+.libraryItem {
+   display: flex;
+    align-items: center;
+    margin: 2%;
+    justify-content: space-between;
+    
+}
+
+.imgAlbm {
+    border-radius: 50%;
+    width: 7%;
+    
+}
+
+.trackListCont {
+    text-align: center;
+    
+   
+    
+}
+
+.track {
+    cursor: pointer;
+    text-decoration: none;
+    color: #ffffff56;
+    transition: 0.8s ease-in-out;
+}
+
+.track:hover {
+    transition: 0.1s ease-in-out;
+    color: #ffffff; 
+    font-weight: bolder;
+}
+
+.litrak {
+    list-style: none;
+}

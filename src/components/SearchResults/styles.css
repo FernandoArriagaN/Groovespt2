@@ -1,0 +1,153 @@
+.searchResutlsContainter {
+    margin: 2%;
+    background: rgba(255, 255, 255, 0.27);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(11.3px);
+    border: 3px solid rgba(179, 179, 179, 0.493);
+    align-items: center;
+
+    
+  
+
+}
+.nameArtist {
+    margin: 0;
+    align-content: center;
+}
+
+.albums {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 2%;
+    justify-content: space-between;
+}
+
+.imgAlbum{
+    border-radius: 50%;
+    width: 80px;
+}
+
+.songLink{
+    cursor: pointer;
+    transition: ease-out 0.8s;
+    text-align: center;
+    margin: 0;
+    font-weight: bold;
+    color: #131313cc;
+    
+}
+.songLink:hover {
+    scale: 1.1;
+     transition: ease-in 0.2s;
+     color: #000;
+}
+
+
+
+
+
+
+
+
+
+
+.songsList {
+    display: flex;
+    justify-content: center;
+
+    
+}
+
+.song {
+    text-decoration: none;
+    color: #000;
+    font-weight: bolder;
+    cursor: pointer;
+    transition: ease-out 0.8s;
+
+}
+
+.song:hover {
+    transition: ease-in 0.2s;
+    scale: 1.1;
+   animation: colors 5s infinite alternate ease-in-out;
+}
+
+@keyframes colors {
+  13% {
+    color: #000;
+  }
+
+  85.5% {
+    color: #5c015c;
+  }
+ 
+}
+
+.artistName {
+    text-align: center;
+}
+
+.listCont {
+    text-align: center;
+    overflow: scroll;
+    scrollbar-width: thin;
+}
+
+.contSongs {
+    padding: 0;
+    margin: 0;
+    height: 80px;
+}
+
+
+
+
+
+
+
+
+
+
+
+.addLibrary{
+    height: 50px;
+    width: 120px;
+    font-size: 1.5vh;
+    font-weight: bolder;
+    color: #8a8a8a;
+    background: rgba(255, 255, 255, 0.507) transparent;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(11.3px);
+    border: 3px solid rgba(179, 179, 179, 0.493);
+    align-items: center;
+    cursor: pointer;
+    transition: ease-out 0.8s;
+}
+
+
+.addLibrary {
+    height: 50px;
+    width: 180px;
+    font-size: 1.8vh;
+    font-weight: bolder;
+    color: #8a8a8a;
+    background: rgba(255, 255, 255, 0.507) transparent;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(11.3px);
+    border: 3px solid rgba(179, 179, 179, 0.493);
+    align-items: center;
+    cursor: pointer;
+    transition: ease-out 0.8s;
+}
+.addLibrary:hover {
+    transition: ease-in 0.2s;
+    color: #000;
+    scale: 1.1;
+    background-color: transparent;
+    border: 1.5px solid #fff;
+}
