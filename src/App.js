@@ -1,25 +1,150 @@
-import logo from './logo.svg';
-import './App.css';
+import './components/Header/styles.css';
+import './components/SearchResults/styles.css';
+import './components/Library/styles.css';
+import './components/SearchInput/styles.css';
+import './components/ArtistList/styles.css';
+import './components/SongDetail/styles.css';
 
-function App() {
+
+import React, { useState }  from 'react';
+import Header from './components/Header';
+import Library from './components/Library';
+import SearchResults from './components/SearchResults';
+import ArtistList from './components/ArtistList';
+import SearchInput from './components/SearchInput';
+import SongDetail from './components/SongDetail';
+import { Route, Routes } from 'react-router-dom';
+
+import useArtistSearch from './hooks/useArtistSearch';
+import useFetchAlbums from './hooks/useFetchAlbums'
+
+
+const App = () => {
+  const [library, setLibrary] = useState([]);
+  const [search, setSearch] = useState('');
+  const [selectedArtistName, setSelectedArtistName] = useState('');
+  const [message, setMessage] = useState('');
+
+
+
+  const {
+    artists,
+    searchArtists,
+    loading: loadingArtists,
+    error: errorArtists,
+    success: successArtists
+  } = useArtistSearch();
+
+  const {
+    albums,
+    fetchAlbums,
+    loading: loadingAlbums,
+    error: errorAlbums,
+    succes: successAlbums,
+  } = useFetchAlbums();
+
+
+  console.log("Álbumes cargados:", albums);
+
+  const handleSearch = () => {
+    searchArtists(search);
+    setSelectedArtistName('');
+  };
+
+  const handleSelectArtist = async (id, name) => {
+    setSelectedArtistName(name);
+    await fetchAlbums(id, name);
+    
+  };
+
+  const handleAddToLibrary = ({ album, artistName }) => {
+  if (!library.some((item) => item.id === album.id)) {
+    setLibrary([
+      ...library,
+      {
+        id: album.id,
+        album: album.title,
+        artist: artistName,
+        image: album.cover_medium,
+      },
+    ]);
+    setMessage("Agregado a Libreria");
+    setTimeout(() => setMessage(""),1500)
+  }
+};
+
+
+
+  console.log(handleAddToLibrary)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <Header />
+
+      {message && (
+        <h1 className='addToLibrary'>{message} </h1>
+      )}
+
+      <Routes>
+        <Route
+        path='/'
+        element = { 
+          <>
+            <SearchInput
+              search={search}
+              setSearch={setSearch}
+              handleSearch={handleSearch}
+            />
+
+            {loadingArtists && <p>Buscando artistas...</p>}
+            {errorArtists && <p>{errorArtists}</p>}
+            {successArtists && artists.length === 0 && <p>No se encontraron artistas.</p>}
+
+            {artists.length > 0 && !selectedArtistName && (
+              <ArtistList 
+              artists={artists} 
+              onSelect={handleSelectArtist} />
+            )}
+
+            {loadingAlbums && <p>Cargando álbumes...</p>}
+            {errorAlbums && <p>{errorAlbums}</p>}
+            {successAlbums && albums.length > 0 && <SearchResults
+              albums={albums}
+              artistName={selectedArtistName}
+              onAddToLibrary={handleAddToLibrary}/>}
+          </>
+        }
+        />
+
+        <Route
+          path="/SearchResults"
+          element={
+            <>
+              {albums.length > 0 && selectedArtistName &&(
+                <SearchResults
+                  albums={albums}
+                  artistName={selectedArtistName}
+                  onAddToLibrary={handleAddToLibrary}
+                />
+              )}
+            </>
+          }
+        />
+
+        <Route 
+          path="/song/:id" 
+          element={<SongDetail />} />
+      
+          <Route
+          path="/library" 
+          element={<Library library={library} />}
+          />
+
+      </Routes>
+     
+    </main>
   );
-}
+};
+
 
 export default App;

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function SongDetail() {
-  const { Id } = useParams();
+  const { id } = useParams();
   const [track, setTrack] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -14,7 +14,7 @@ function SongDetail() {
       setError(null);
       try {
         const response = await axios.get(
-          `https://cors-anywhere.herokuapp.com/https://api.deezer.com/track/${Id}`
+          `https://cors-anywhere.herokuapp.com/https://api.deezer.com/track/${id}`
         );
         setTrack(response.data);
       } catch (err) {
@@ -25,7 +25,7 @@ function SongDetail() {
     };
 
     fetchTrack();
-  }, [Id]);
+  }, [id]);
 
   if (loading) return <p>Cargando detalles...</p>;
   if (error) return <p>{error}</p>;

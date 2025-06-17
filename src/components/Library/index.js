@@ -30,7 +30,7 @@ const Library = ({ library }) => {
   };
 
   if (!library || library.length === 0) {
-    return <i>nada por aqui</i>;
+    return <i className="empty">Nada por aqui...</i>;
   }
 
   return (
@@ -47,8 +47,12 @@ const Library = ({ library }) => {
 
             
               <h1 className="nameArtist">{item.artist}</h1>
-              <p className="albumName"
-              onClick={() => toggleTracks(item.id)}>{item.album}</p>
+              <p className="albumName">{item.album}</p>
+              <button 
+                className="showSongLibrary" 
+                onClick={() => toggleTracks(item.id)}>
+                {selectedAlbumId === item.id ? "Ocultar canciones" : "Mostrar canciones"} 
+              </button>
               
               {selectedAlbumId === item.id && (
                 <article className="trackListCont">

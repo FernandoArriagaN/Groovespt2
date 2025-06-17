@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import axios from 'axios';
 
+
+
+
 const useArtistSearch = () => {
   const [artists, setArtists] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -20,6 +23,7 @@ const useArtistSearch = () => {
         `https://cors-anywhere.herokuapp.com/https://api.deezer.com/search/artist?q=${searchTerm}`
       );
       setArtists(response.data.data);
+     if (response.data.data.length)
       setSuccess(true);
     } catch (err) {
       setError('No se pudo buscar artistas.');

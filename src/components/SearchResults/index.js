@@ -36,7 +36,10 @@ const SearchResults = ({ albums, artistName, onAddToLibrary }) => {
           key={album.id}>
           <img className="imgAlbum" src={album.cover_medium} alt={album.title} />
           <h1 className="artistName">{artistName}</h1>
-          <p className="songLink" onClick={() => toggleTracks(album.id)}>{album.title}</p>
+          <p className="songLink" >{album.title}</p>
+          <button className="showSongs" onClick={() => toggleTracks(album.id)}> 
+            {selectedAlbumId === album.id ? "Ocultar canciones" : "Mostrar canciones"}
+          </button>
           
                     
           {selectedAlbumId === album.id && (
@@ -58,8 +61,13 @@ const SearchResults = ({ albums, artistName, onAddToLibrary }) => {
 
           <button
           className="addLibrary" 
-          onClick={() => onAddToLibrary({ album, artistName })}>
+          onClick={() => {
+            
+            onAddToLibrary({ album, artistName });
+          }}
+>
             Agregar a Libreria
+            
           </button>
 
           

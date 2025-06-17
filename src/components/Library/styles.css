@@ -22,19 +22,14 @@
 }
 
 .albumName {
-    cursor: pointer;
-    transition: ease-out 0.8s;
+    
     text-align: center;
     margin: 0;
     font-weight: bold;
-    color: #ffffff56;
+    
     
 }
-.albumName:hover {
-    scale: 1.1;
-     transition: ease-in 0.2s;
-    color: #ffffff; 
-}
+
 
 .libraryItem {
    display: flex;
@@ -52,24 +47,62 @@
 
 .trackListCont {
     text-align: center;
+    margin: 0;
     
    
     
 }
 
-.track {
-    cursor: pointer;
-    text-decoration: none;
-    color: #ffffff56;
-    transition: 0.8s ease-in-out;
-}
-
-.track:hover {
-    transition: 0.1s ease-in-out;
-    color: #ffffff; 
-    font-weight: bolder;
-}
 
 .litrak {
     list-style: none;
+}
+
+.track {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bolder;
+    transition: ease-in-out 0.8s;
+    
+}
+
+.track:hover {
+    scale: 1.5;
+    transition: ease-out 0.1;
+    color: #535353;
+}
+
+.trackList {
+    padding: 0;
+}
+
+
+.empty {
+    display: flex;
+    color: #000;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.showSongLibrary {
+    height: 40px;
+    width: 100px;
+    font-size: 1.5vh;
+    font-weight: bolder;
+    color: #000000;
+    background:transparent;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(11.3px);
+    border: 1px solid rgba(255, 255, 255, 0.705);
+    align-items: center;
+    cursor: pointer;
+    transition: ease-out 0.8s;
+}
+
+.showSongLibrary:hover {
+    scale: 1.2;
+    transition: ease-out 0.2s;
+    color: #fff;
 }
