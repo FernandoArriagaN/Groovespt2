@@ -10,7 +10,7 @@ const Header = () => {
   const location = useLocation();
   const actualPath = location.pathname;
 
-  const showLibraryIcon = actualPath === '/' || actualPath.startsWith('/song/');
+  const showLibraryIcon = actualPath === '/' || actualPath.startsWith('/song/') || actualPath.startsWith('/SearchResults');
   const showHomeIcon = actualPath !== '/';
   
   return (

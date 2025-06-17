@@ -6,6 +6,7 @@ import './components/ArtistList/styles.css';
 import './components/SongDetail/styles.css';
 
 
+
 import React, { useState }  from 'react';
 import Header from './components/Header';
 import Library from './components/Library';
@@ -13,10 +14,12 @@ import SearchResults from './components/SearchResults';
 import ArtistList from './components/ArtistList';
 import SearchInput from './components/SearchInput';
 import SongDetail from './components/SongDetail';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import useArtistSearch from './hooks/useArtistSearch';
 import useFetchAlbums from './hooks/useFetchAlbums'
+
+
 
 
 const App = () => {
@@ -24,7 +27,7 @@ const App = () => {
   const [search, setSearch] = useState('');
   const [selectedArtistName, setSelectedArtistName] = useState('');
   const [message, setMessage] = useState('');
-
+  const navigate = useNavigate();
 
 
   const {
@@ -54,8 +57,14 @@ const App = () => {
   const handleSelectArtist = async (id, name) => {
     setSelectedArtistName(name);
     await fetchAlbums(id, name);
+    navigate('/SearchResults');
     
   };
+
+  const handleGoHome = () => {
+    setSelectedArtistName('');
+    navigate('/');
+  }
 
   const handleAddToLibrary = ({ album, artistName }) => {
   if (!library.some((item) => item.id === album.id)) {
@@ -106,12 +115,7 @@ const App = () => {
               onSelect={handleSelectArtist} />
             )}
 
-            {loadingAlbums && <p>Cargando álbumes...</p>}
-            {errorAlbums && <p>{errorAlbums}</p>}
-            {successAlbums && albums.length > 0 && <SearchResults
-              albums={albums}
-              artistName={selectedArtistName}
-              onAddToLibrary={handleAddToLibrary}/>}
+
           </>
         }
         />
@@ -120,7 +124,9 @@ const App = () => {
           path="/SearchResults"
           element={
             <>
-              {albums.length > 0 && selectedArtistName &&(
+              {loadingAlbums && <p>Cargando álbumes...</p>}
+              {errorAlbums && <p>{errorAlbums}</p>}
+              {successAlbums && albums.length > 0 && selectedArtistName &&(
                 <SearchResults
                   albums={albums}
                   artistName={selectedArtistName}
