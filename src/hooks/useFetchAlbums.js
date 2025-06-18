@@ -13,8 +13,6 @@ const useFetchAlbums = () => {
     setLoading(true);
     setError(null);
     setSucces(false);
-    
-
     try {
       const response = await axios.get(`https://cors-anywhere.herokuapp.com/https://api.deezer.com/artist/${artistId}/albums`);
 
@@ -38,5 +36,4 @@ const useFetchAlbums = () => {
 
   return { albums, fetchAlbums, loading, error, succes };
 };
-
 export default useFetchAlbums;
