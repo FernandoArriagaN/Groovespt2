@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { AddLibrary, Albums, ArtistName, ContSong, ImgAlbum, ListCont, Loading, SearchResutlsContainter, ShowSongs, Song, SongLink, SongsList } from "./styles";
 
 
 const SearchResults = ({ albums, artistName, onAddToLibrary }) => {
@@ -30,36 +31,36 @@ const SearchResults = ({ albums, artistName, onAddToLibrary }) => {
   };
 
   return (
-    <section className="searchResutlsContainter">
+    <SearchResutlsContainter className="searchResutlsContainter">
       {albums.map((album) => (
-        <article className="albums" 
+        <Albums className="albums" 
           key={album.id}>
-          <img className="imgAlbum" src={album.cover_medium} alt={album.title} />
-          <h1 className="artistName">{artistName}</h1>
-          <p className="songLink" >{album.title}</p>
-          <button className="showSongs" onClick={() => toggleTracks(album.id)}> 
+          <ImgAlbum className="imgAlbum" src={album.cover_medium} alt={album.title} />
+          <ArtistName className="artistName">{artistName}</ArtistName>
+          <SongLink className="songLink" >{album.title}</SongLink>
+          <ShowSongs className="showSongs" onClick={() => toggleTracks(album.id)}> 
             {selectedAlbumId === album.id ? "Ocultar canciones" : "Mostrar canciones"}
-          </button>
+          </ShowSongs>
           
                     
           {selectedAlbumId === album.id && (
-            <article className="listCont">
+            <ListCont className="listCont">
               {loading ? (
-                <p>Cargando canciones...</p>
+                <Loading>Cargando canciones...</Loading>
               ) : (
-                <ul className="contSongs">
+                <ContSong className="contSongs">
                   {tracks[album.id]?.map((track) => (
-                    <li className="songsList"
+                    <SongsList className="songsList"
                       key={track.id}>
-                      <Link className="song" to={`/song/${track.id}`}>{track.title}</Link>
-                    </li>
+                      <Song className="song" to={`/song/${track.id}`}>{track.title}</Song>
+                    </SongsList>
                   ))}
-                </ul>
+                </ContSong>
               )}
-            </article>
+            </ListCont>
           )}
 
-          <button
+          <AddLibrary
           className="addLibrary" 
           onClick={() => {
             
@@ -68,12 +69,12 @@ const SearchResults = ({ albums, artistName, onAddToLibrary }) => {
 >
             Agregar a Libreria
             
-          </button>
+          </AddLibrary>
 
           
-        </article>
+        </Albums>
       ))}
-    </section>
+    </SearchResutlsContainter>
   );
 };
 

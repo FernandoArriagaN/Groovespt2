@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { ArtistListCont,ArtistRes,ArtistSelect,Encontrados, ListArt } from "./styles";
 
 const ArtistList = ({ artists, onSelect }) => {
   const navigate = useNavigate();
@@ -11,21 +12,21 @@ const ArtistList = ({ artists, onSelect }) => {
 
 
   return (
-    <section className="artisListCont">
-      <h2 className="encontrados">Artistas encontrados:</h2>
-      <ul className="listArt">
+    <ArtistListCont className="artisListCont">
+      <Encontrados className="encontrados">Artistas encontrados:</Encontrados>
+      <ListArt className="listArt">
         {artists.map((artist) => (
-          <li className="artistRes" key={artist.id}>
-            <button
+          <ArtistRes className="artistRes" key={artist.id}>
+            <ArtistSelect
               className="artistSelect"
               onClick={() => handleClick(artist.id, artist.name)}
             >
               {artist.name}
-            </button>
-          </li>
+            </ArtistSelect>
+          </ArtistRes>
         ))}
-      </ul>
-    </section>
+      </ListArt>
+    </ArtistListCont>
   );
 };
 

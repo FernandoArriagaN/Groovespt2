@@ -1,4 +1,5 @@
 import React from "react";
+import { ButtonImput, InputContainer, InputSearch, LabelInput, TitleContainer, TitleSearch } from "./styles";
 
 
 
@@ -6,12 +7,12 @@ const SearchInput = ({search, setSearch, handleSearch}) => (
 
 
   
-    <section className="imputContainer">
-        <article className="titleContainer">
-            <h1 className="titleSearch">Busqueda por Artista</h1>
-        </article>
-        <article className="inputSearch">
-            <input placeholder="BUSQUEDA DE ARTISTA" className="labelInput"
+    <InputContainer className="imputContainer">
+        <TitleContainer className="titleContainer">
+            <TitleSearch className="titleSearch">Busqueda por Artista</TitleSearch>
+        </TitleContainer>
+        <InputSearch className="inputSearch">
+            <LabelInput placeholder="BUSQUEDA DE ARTISTA" className="labelInput"
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -22,13 +23,13 @@ const SearchInput = ({search, setSearch, handleSearch}) => (
               }
             } }
             />
-            <button className="buttonInput" 
+            <ButtonImput className="buttonInput" 
             onClick={handleSearch}
             
             > 
-            Buscar </button>
-        </article>
-    </section>
+            Buscar </ButtonImput>
+        </InputSearch>
+    </InputContainer>
 );
 
 export default SearchInput;

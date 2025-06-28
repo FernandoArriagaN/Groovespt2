@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { AlbumName, ArtistName, LetrasExplicitas, SongCover, SongDetailsCont, TrackTitle } from './styles';
 
 function SongDetail() {
   const { id } = useParams();
@@ -30,19 +31,25 @@ function SongDetail() {
   if (loading) return <p>Cargando detalles...</p>;
   if (error) return <p>{error}</p>;
 
+
+
   return (
-    <section className='songDetalisCont'>
+    <SongDetailsCont className='songDetalisCont'>
       {track && (
         <>
-          <img className='songCover' src={track.album?.cover} alt={track.album?.title} />
-          <h2>{track.title}</h2>
-          <p>{track.artist?.name}</p>
-          <p>{track.album?.title}</p>
+          <SongCover className='songCover' src={track.album?.cover} alt={track.album?.title} />
+          <TrackTitle>{track.title}</TrackTitle>
+          <ArtistName>{track.artist?.name}</ArtistName>
+          <AlbumName>{track.album?.title}</AlbumName>
+          <LetrasExplicitas $ExplicitLiryc={track.explicit_lyrics}> 
+            {track.explicit_lyrics?  "Contiene Letras Explicitas" : "No Contiene Letras Explicitas" } </LetrasExplicitas>
+
+
           <audio controls src={ track.preview} />
           
         </>
       )}
-    </section>
+    </SongDetailsCont>
   );
 }
 

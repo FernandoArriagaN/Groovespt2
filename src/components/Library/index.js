@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { LibraryItem, LibraryContainer, TitleLibrary, LibraryList, ImgAlbm, Empty, AlbumName, ShowSongLibrary, TrackListCont, TrackList, LiTrack, Track, NameArtist, LoadingText, } from "./styles";
 
 
 const Library = ({ library }) => {
@@ -30,52 +31,52 @@ const Library = ({ library }) => {
   };
 
   if (!library || library.length === 0) {
-    return <i className="empty">Nada por aqui...</i>;
+    return <Empty className="empty">Nada por aqui...</Empty>;
   }
 
   return (
-    <section className="library">
-      <h2 className="titeLibrary">Libreria</h2>
-      <ul className="libraryList">
+    <LibraryContainer className="library">
+      <TitleLibrary className="titeLibrary">Libreria</TitleLibrary>
+      <LibraryList className="libraryList">
         {library.map((item, index) => (
-          <li 
+          <LibraryItem 
           key={index} className="libraryItem">
-          <img className="imgAlbm"
+          <ImgAlbm className="imgAlbm"
           src={item.image} 
           alt={item.album}  />
 
 
             
-              <h1 className="nameArtist">{item.artist}</h1>
-              <p className="albumName">{item.album}</p>
-              <button 
+              <NameArtist className="nameArtist">{item.artist}</NameArtist>
+              <AlbumName className="albumName">{item.album}</AlbumName>
+              <ShowSongLibrary 
                 className="showSongLibrary" 
                 onClick={() => toggleTracks(item.id)}>
                 {selectedAlbumId === item.id ? "Ocultar canciones" : "Mostrar canciones"} 
-              </button>
+              </ShowSongLibrary>
               
               {selectedAlbumId === item.id && (
-                <article className="trackListCont">
+                <TrackListCont className="trackListCont">
                   {loading ? (
-                    <p>Cargando canciones...</p>
+                    <LoadingText>Cargando canciones...</LoadingText>
                   ) : (
-                    <ul className="trackList">
+                    <TrackList className="trackList">
                       {(tracks[item.id] || []).map((track) => (
-                        <li className="litrak"
+                        <LiTrack className="litrak"
                         key={track.id}>
-                        <Link className="track" to={`/song/${track.id}`}>{track.title}</Link>
-                        </li>
+                        <Track className="track" to={`/song/${track.id}`}>{track.title}</Track>
+                        </LiTrack>
                         
                       ))}
-                    </ul>
+                    </TrackList>
                   )}
-                </article>
+                </TrackListCont>
               )}
             
-          </li>
+          </LibraryItem>
         ))}
-      </ul>
-    </section>
+      </LibraryList>
+    </LibraryContainer>
   );
 };
 

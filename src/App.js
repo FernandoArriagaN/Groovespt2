@@ -1,12 +1,3 @@
-import './components/Header/styles.css';
-import './components/SearchResults/styles.css';
-import './components/Library/styles.css';
-import './components/SearchInput/styles.css';
-import './components/ArtistList/styles.css';
-import './components/SongDetail/styles.css';
-
-
-
 import React, { useState }  from 'react';
 import Header from './components/Header';
 import Library from './components/Library';
@@ -18,6 +9,11 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import useArtistSearch from './hooks/useArtistSearch';
 import useFetchAlbums from './hooks/useFetchAlbums'
+import { ThemeProvider } from 'styled-components';
+import Theme from './theme'
+import GlobalStyle from './theme/GlobalStyles';
+import { AddToLibrary } from './styles';
+
 
 
 
@@ -87,68 +83,72 @@ const App = () => {
   console.log(handleAddToLibrary)
 
   return (
-    <main>
-      <Header />
 
-      {message && (
-        <h1 className='addToLibrary'>{message} </h1>
-      )}
+    <ThemeProvider theme={ Theme }>
+      <GlobalStyle/>
+      <main>
+        <Header />
 
-      <Routes>
-        <Route
-        path='/'
-        element = { 
-          <>
-            <SearchInput
-              search={search}
-              setSearch={setSearch}
-              handleSearch={handleSearch}
-            />
+        {message && (
+          <AddToLibrary className='addToLibrary'>{message} </AddToLibrary>
+        )}
 
-            {loadingArtists && <p>Buscando artistas...</p>}
-            {errorArtists && <p>{errorArtists}</p>}
-            {successArtists && artists.length === 0 && <p>No se encontraron artistas.</p>}
-
-            {artists.length > 0 && !selectedArtistName && (
-              <ArtistList 
-              artists={artists} 
-              onSelect={handleSelectArtist} />
-            )}
-
-
-          </>
-        }
-        />
-
-        <Route
-          path="/SearchResults"
-          element={
+        <Routes>
+          <Route
+          path='/'
+          element = { 
             <>
-              {loadingAlbums && <p>Cargando álbumes...</p>}
-              {errorAlbums && <p>{errorAlbums}</p>}
-              {successAlbums && albums.length > 0 && selectedArtistName &&(
-                <SearchResults
-                  albums={albums}
-                  artistName={selectedArtistName}
-                  onAddToLibrary={handleAddToLibrary}
-                />
+              <SearchInput
+                search={search}
+                setSearch={setSearch}
+                handleSearch={handleSearch}
+              />
+
+              {loadingArtists && <p>Buscando artistas...</p>}
+              {errorArtists && <p>{errorArtists}</p>}
+              {successArtists && artists.length === 0 && <p>No se encontraron artistas.</p>}
+
+              {artists.length > 0 && !selectedArtistName && (
+                <ArtistList 
+                artists={artists} 
+                onSelect={handleSelectArtist} />
               )}
+
+
             </>
           }
-        />
-
-        <Route 
-          path="/song/:id" 
-          element={<SongDetail />} />
-      
-          <Route
-          path="/library" 
-          element={<Library library={library} />}
           />
 
-      </Routes>
-     
-    </main>
+          <Route
+            path="/SearchResults"
+            element={
+              <>
+                {loadingAlbums && <p>Cargando álbumes...</p>}
+                {errorAlbums && <p>{errorAlbums}</p>}
+                {successAlbums && albums.length > 0 && selectedArtistName &&(
+                  <SearchResults
+                    albums={albums}
+                    artistName={selectedArtistName}
+                    onAddToLibrary={handleAddToLibrary}
+                  />
+                )}
+              </>
+            }
+          />
+
+          <Route 
+            path="/song/:id" 
+            element={<SongDetail />} />
+        
+            <Route
+            path="/library" 
+            element={<Library library={library} />}
+            />
+
+        </Routes>
+      
+      </main>
+    </ThemeProvider>
   );
 };
 
