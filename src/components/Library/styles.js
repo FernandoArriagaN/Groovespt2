@@ -120,6 +120,18 @@ const ShowSongLibrary = styled.button `
 
 `
 
+const TrassIcon = styled.img `
+    width: 40px;
+    color: #fff;
+    cursor: pointer;
+     transition: ease-out 0.8s;
+
+    &:hover {
+        scale: 1.2;
+        transition: ease-out 0.2s;
+    }
+`
+
 
 
 export {       
@@ -136,6 +148,7 @@ export {
     Empty,
     ShowSongLibrary,
     NameArtist,
-    LoadingText
+    LoadingText,
+    TrassIcon
     
 }

@@ -13,13 +13,16 @@ import { ThemeProvider } from 'styled-components';
 import Theme from './theme'
 import GlobalStyle from './theme/GlobalStyles';
 import { AddToLibrary } from './styles';
+import { useSelector, useDispatch } from 'react-redux';
+import { addAlbum } from './redux/libraryActions';
 
 
 
 
 
 const App = () => {
-  const [library, setLibrary] = useState([]);
+   const dispatch = useDispatch();
+  const library = useSelector((state) => state.library.library);
   const [search, setSearch] = useState('');
   const [selectedArtistName, setSelectedArtistName] = useState('');
   const [message, setMessage] = useState('');
@@ -62,25 +65,24 @@ const App = () => {
     navigate('/');
   }
 
+
+
   const handleAddToLibrary = ({ album, artistName }) => {
-  if (!library.some((item) => item.id === album.id)) {
-    setLibrary([
-      ...library,
-      {
+  
+    if (!library.some((item) => item.id === album.id)) {
+    dispatch(addAlbum({
         id: album.id,
         album: album.title,
         artist: artistName,
         image: album.cover_medium,
-      },
-    ]);
+      }));
     setMessage("Agregado a Libreria");
     setTimeout(() => setMessage(""),1500)
   }
 };
 
 
-
-  console.log(handleAddToLibrary)
+ 
 
   return (
 
@@ -140,10 +142,9 @@ const App = () => {
             path="/song/:id" 
             element={<SongDetail />} />
         
-            <Route
+            <Route 
             path="/library" 
-            element={<Library library={library} />}
-            />
+            element={<Library library={library} />} />
 
         </Routes>
       
