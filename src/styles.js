@@ -26,7 +26,24 @@ const AddToLibrary = styled.h1 `
 
 ` 
 
+const MsgSearching = styled.p `
+    color:  #33cf11;
+    text-align: center;
+    font-size: 35px;
+    margin-top: 100px;
+    font-weight: bolder;
+` 
 
+const ErrorMsg = styled.p ` 
+    color:  #ff0000;
+    text-align: center;
+    font-size: 35px;
+    margin-top: 100px;
+    font-weight: bolder;
+
+`  
 export {
-    AddToLibrary
+    AddToLibrary,
+    MsgSearching,
+    ErrorMsg,
 }

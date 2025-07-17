@@ -18,6 +18,21 @@ const LetrasExplicitas = styled.p `
 
 `
 
+const LoadingMesg = styled.p `
+    color:  #33cf11;
+    text-align: center;
+    font-size: 35px;
+    margin-top: 100px;
+    font-weight: bolder;
+`
+const ErrorMsg = styled.p `
+    color:  #ff0000;
+    text-align: center;
+    font-size: 35px;
+    margin-top: 100px;
+    font-weight: bolder;
+`
+
 const TrackTitle = styled.h2 `
     text-align: center;
     margin: 30px;
@@ -44,6 +59,8 @@ export {
     TrackTitle,
     ArtistName,
     AlbumName,
-    LetrasExplicitas
+    LetrasExplicitas,
+    LoadingMesg,
+    ErrorMsg,
 
 }

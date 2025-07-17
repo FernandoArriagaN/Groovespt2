@@ -3,8 +3,9 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { LibraryItem, LibraryContainer, TitleLibrary, LibraryList, ImgAlbm, Empty, AlbumName, ShowSongLibrary, TrackListCont, TrackList, LiTrack, Track, NameArtist, LoadingText, TrassIcon, } from "./styles";
 import { useDispatch, useSelector } from "react-redux";
-import { removeAlbum } from "../../redux/libraryActions";
+
 import Trash from './img/TrashCan.png'
+import { removeAlbum } from "../../redux/slices/librarySlice";
 
 
 const Library = () => {
@@ -13,12 +14,11 @@ const Library = () => {
   const [loading, setLoading] = useState(false);
   
   const library = useSelector((state) => state.library.library);
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-const handleRemoveAlbum = (id) => {
-    dispatch(removeAlbum(id))
+  const handleRemoveAlbum = (id) => {
+      dispatch(removeAlbum(id))
   }
-console.log(handleRemoveAlbum);
 
 
   const toggleTracks = async (albumId) => {

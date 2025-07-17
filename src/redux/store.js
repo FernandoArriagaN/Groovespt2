@@ -1,14 +1,16 @@
-import { combineReducers, createStore } from "redux"
-import libraryReducer from "./libraryReducer";
+import { configureStore } from "@reduxjs/toolkit";
+import libraryReducer from "./slices/librarySlice";
+import searchReducer from "./slices/searchSlice";
+import albumReducer from "./slices/albumsSlice";
 
-
-
-const rootReducer = combineReducers({
-    library: libraryReducer
+const store = configureStore({
+    reducer: {
+        search: searchReducer,
+        albums: albumReducer,
+        library: libraryReducer,
+        
+    }
 });
 
-
-
-const store = createStore(rootReducer);
 
 export default store;

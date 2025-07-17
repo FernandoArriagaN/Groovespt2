@@ -8,7 +8,7 @@ const Theme = {
     colors: {
         primary: '#fff',
         secondary: '#000',
-        GroovesPurple: '#4b0082'
+        GroovesPurple: '#4b0082',
     }
 }
 

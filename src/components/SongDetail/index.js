@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { AlbumName, ArtistName, LetrasExplicitas, SongCover, SongDetailsCont, TrackTitle } from './styles';
+import { AlbumName, ArtistName, ErrorMsg, LetrasExplicitas, LoadingMesg, SongCover, SongDetailsCont, TrackTitle } from './styles';
 
 function SongDetail() {
   const { id } = useParams();
@@ -28,8 +28,8 @@ function SongDetail() {
     fetchTrack();
   }, [id]);
 
-  if (loading) return <p>Cargando detalles...</p>;
-  if (error) return <p>{error}</p>;
+  if (loading) return <LoadingMesg>Cargando detalles...</LoadingMesg>;
+  if (error) return <ErrorMsg>{error}</ErrorMsg>;
 
 
 

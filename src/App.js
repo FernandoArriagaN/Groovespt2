@@ -6,22 +6,31 @@ import ArtistList from './components/ArtistList';
 import SearchInput from './components/SearchInput';
 import SongDetail from './components/SongDetail';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-
-import useArtistSearch from './hooks/useArtistSearch';
-import useFetchAlbums from './hooks/useFetchAlbums'
 import { ThemeProvider } from 'styled-components';
 import Theme from './theme'
 import GlobalStyle from './theme/GlobalStyles';
-import { AddToLibrary } from './styles';
+import { AddToLibrary, ErrorMsg, MsgSearching } from './styles';
 import { useSelector, useDispatch } from 'react-redux';
-import { addAlbum } from './redux/libraryActions';
+import { addAlbum,  } from './redux/slices/librarySlice';
+import { fetchArtist } from './redux/slices/searchSlice';
+import { fetchAlbums } from './redux/slices/albumsSlice';
 
 
 
 
 
 const App = () => {
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const loadingArtists = useSelector(state => state.search.loading);
+  const errorArtists = useSelector(state => state.search.error);
+  const artists = useSelector(state => state.search.results);
+  const successArtists = !loadingArtists && !errorArtists && artists.length > 0;
+ 
+  const albums = useSelector(state => state.albums.albums);
+  const loadingAlbums = useSelector(state => state.albums.loading);
+  const errorAlbums = useSelector(state => state.albums.error);
+  const successAlbums = !loadingAlbums && !errorAlbums && albums.length > 0;
+
   const library = useSelector((state) => state.library.library);
   const [search, setSearch] = useState('');
   const [selectedArtistName, setSelectedArtistName] = useState('');
@@ -29,33 +38,18 @@ const App = () => {
   const navigate = useNavigate();
 
 
-  const {
-    artists,
-    searchArtists,
-    loading: loadingArtists,
-    error: errorArtists,
-    success: successArtists
-  } = useArtistSearch();
-
-  const {
-    albums,
-    fetchAlbums,
-    loading: loadingAlbums,
-    error: errorAlbums,
-    succes: successAlbums,
-  } = useFetchAlbums();
-
-
-  console.log("Álbumes cargados:", albums);
 
   const handleSearch = () => {
-    searchArtists(search);
+    if(search.trim() === "") {
+      return;
+    }
+    dispatch(fetchArtist(search));
     setSelectedArtistName('');
   };
 
-  const handleSelectArtist = async (id, name) => {
+  const handleSelectArtist =  (id, name) => {
     setSelectedArtistName(name);
-    await fetchAlbums(id, name);
+    dispatch(fetchAlbums(id));
     navigate('/SearchResults');
     
   };
@@ -106,9 +100,9 @@ const App = () => {
                 handleSearch={handleSearch}
               />
 
-              {loadingArtists && <p>Buscando artistas...</p>}
-              {errorArtists && <p>{errorArtists}</p>}
-              {successArtists && artists.length === 0 && <p>No se encontraron artistas.</p>}
+              {loadingArtists && <MsgSearching>Buscando Artistas...</MsgSearching>}
+              {errorArtists && <ErrorMsg>{errorArtists}</ErrorMsg>}
+              {successArtists && artists.length === 0 && <p>No se encontraron artistas...</p>}
 
               {artists.length > 0 && !selectedArtistName && (
                 <ArtistList 
@@ -125,8 +119,8 @@ const App = () => {
             path="/SearchResults"
             element={
               <>
-                {loadingAlbums && <p>Cargando álbumes...</p>}
-                {errorAlbums && <p>{errorAlbums}</p>}
+                {loadingAlbums && <MsgSearching>Cargando álbumes...</MsgSearching>}
+                {errorAlbums && <ErrorMsg>{errorAlbums}</ErrorMsg>}
                 {successAlbums && albums.length > 0 && selectedArtistName &&(
                   <SearchResults
                     albums={albums}
