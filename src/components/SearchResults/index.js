@@ -36,7 +36,7 @@ const SearchResults = ({ albums, artistName, onAddToLibrary }) => {
         <Albums className="albums" 
           key={album.id}>
           <ImgAlbum className="imgAlbum" src={album.cover_medium} alt={album.title} />
-          <ArtistName className="artistName">{artistName}</ArtistName>
+          <ArtistName className="artistName">{album.artistName}</ArtistName>
           <SongLink className="songLink" >{album.title}</SongLink>
           <ShowSongs className="showSongs" onClick={() => toggleTracks(album.id)}> 
             {selectedAlbumId === album.id ? "Ocultar canciones" : "Mostrar canciones"}

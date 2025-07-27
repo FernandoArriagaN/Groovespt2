@@ -86,7 +86,7 @@ const Library = () => {
                   
                 </TrackListCont>
               )}
-            <TrassIcon src={Trash} onClick={() => handleRemoveAlbum(item.id)}/>
+            <TrassIcon alt="Eliminar Album" src={Trash} onClick={() => handleRemoveAlbum(item.id)}/>
           </LibraryItem>
         ))}
       </LibraryList>
